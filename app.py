@@ -409,13 +409,13 @@ with tab3:
     with pd.ExcelWriter(output, engine="openpyxl") as writer:
         final_df.to_excel(writer, index=False, header=False, sheet_name="Página1")
 
-    st.download_button(
-        label="📥 Baixar planilha formatada",
-        data=output.getvalue(),
-        file_name=f"contagem_{aluno_export.lower()}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        key=f"download_individual_{aluno_export}"  # chave única
-    )
+    # st.download_button(
+    #     label="📥 Baixar planilha formatada",
+    #     data=output.getvalue(),
+    #     file_name=f"contagem_{aluno_export.lower()}.xlsx",
+    #     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    #     key=f"download_individual_{aluno_export}"  # chave única
+    # )
 
 with tab4:
     st.subheader("📒 Gerar planilha geral com todos os alunos")
