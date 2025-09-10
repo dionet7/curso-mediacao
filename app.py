@@ -3,7 +3,7 @@ import pandas as pd
 import sqlite3
 import matplotlib.pyplot as plt
 import io
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from database import criar_tabela, inserir_participacao
 from utils import calcular_duracao
 
@@ -129,8 +129,11 @@ with tab1:
                 st.rerun()
         else:
             data = st.date_input("Data da atividade")
-            hora_inicio = st.time_input("Hora inicial", time(9, 0))
-            hora_fim = st.time_input("Hora final", time(13, 0))
+            # hora_inicio = st.time_input("Hora inicial", time(9, 0))
+            # hora_fim = st.time_input("Hora final", time(13, 0))
+            hora_inicio = st.time_input("Hora inicial", value=time(9, 0), step=timedelta(minutes=5))
+            hora_fim = st.time_input("Hora final", value=time(13, 0), step=timedelta(minutes=5))
+
             tipo = st.selectbox("Tipo de atividade", ["Mediação", "Co-mediação", "Observação"])
             observadores_lista = []
             outro_comediador = ""
@@ -327,6 +330,8 @@ with tab3:
     # if df.empty:
     #     st.info("Este aluno ainda não possui registros.")
     #     st.stop()
+    
+    
     if df.empty:
         st.info("Este aluno ainda não possui registros.")
     else:
@@ -408,7 +413,8 @@ with tab3:
         label="📥 Baixar planilha formatada",
         data=output.getvalue(),
         file_name=f"contagem_{aluno_export.lower()}.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        key=f"download_individual_{aluno_export}"  # chave única
     )
 
 with tab4:
@@ -470,7 +476,8 @@ with tab4:
             label="📄 Baixar Planilha Geral",
             data=output.getvalue(),
             file_name="planilha_geral_participacoes.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            key="download_geral"
         )
 
 
